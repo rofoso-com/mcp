@@ -37,7 +37,7 @@ add this to your `~/.cursor/mcp.json` file:
   "mcpServers": {
     "polopan-products": {
       "command": "npx",
-      "args": ["-y", "@our/polopan-products-mcp"]
+      "args": ["-y", "polopan-products-mcp"]
     }
   }
 }

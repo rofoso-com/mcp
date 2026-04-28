@@ -1,38 +1,36 @@
-# PoloPan MCP Server
+# polopan mcp server
 
-Search products and generate complete fashion outfit recommendations through a production-ready MCP server.
+find clothes faster, get full outfit ideas, and shop with less effort.
 
-## Supported Features
+## what you can do
 
-### Product Discovery
+### search by words
 
-**Text Search** - Search products with optional filters like gender, size, price, vendor, and sorting.
+type what you want, like "birthday dress under 3000", and get options quickly.
 
-**Image Search (URL)** - Find similar products by passing an image URL.
+### search by image
 
-**Image Upload Search** - Upload a local image/base64 and run visual search.
+upload a photo or share an image link to find similar styles.
 
----
+### get complete outfit ideas
 
-### Product Intelligence
+pick one item and get matching suggestions like heels, clutch, and earrings.
 
-**Product by Handle** - Fetch full product details using a product handle.
+### find cheaper alternatives
 
-**Alternatives in Budget** - Find similar products under selected budget ranges.
+if you like a product but want more options in your budget, ask for alternatives.
 
-**Recommended Outfits** - Get complete outfit recommendations from a source product.
+## setup
 
-## Setup Instructions
+### install in cursor
 
-### Add PoloPan MCP to Cursor
-
-[![Install MCP Server](https://cursor.com/deeplink/mcp-install-dark.svg)](
-cursor://anysphere.cursor-deeplink/mcp/install?name=polopan-products&config=%7B%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22-y%22%2C%22%40our/polopan-products-mcp%22%5D%7D
+[![install mcp server](https://cursor.com/deeplink/mcp-install-dark.svg)](
+https://polopan.com/mcp/cursor
 )
 
-### OR
+### or setup manually
 
-**Manual Setup:** Update your `mcp.json` configuration file in `~/.cursor/mcp.json`:
+add this to your `~/.cursor/mcp.json` file:
 
 ```json
 {
@@ -45,30 +43,50 @@ cursor://anysphere.cursor-deeplink/mcp/install?name=polopan-products&config=%7B%
 }
 ```
 
-Save the file and reload Cursor.
+save and reload cursor.
 
-## Example Prompts You Can Try
+## prompts you can copy and use
 
-### Find by Text
+### birthday party shopping
 
 ```text
-Find women party dresses under 3000 in size XXL.
+i am looking for a dress for a birthday party. i am a 27 year old girl.
+use polopan mcp and give me complete outfits.
+include dress + heels + clutch + earrings with links and total price.
+show me budget, mid, and premium options.
 ```
 
-### Find by Image
+### club night look
 
 ```text
-Use this image and suggest similar tops in my size.
+budget is not a problem.
+size is 2xl/3xl.
+occasion is friends club night.
+use polopan mcp and suggest 8 complete looks.
+make them bold and stylish, and include total look price.
 ```
 
-### Get Budget Alternatives
+### find from image
 
 ```text
-For handle myntra-36901009, show alternatives in 1501-3000.
+use this image and find similar products.
+then show only pants or trousers style options with links and sizes.
+if exact trousers are not available, show the closest bottom-wear options.
 ```
 
-### Build Outfits
+### look for cheaper options
 
 ```text
-Create 5 complete outfits from this dress for a birthday party.
+i like this product: myntra-36901009
+find similar options in the 1501-3000 budget range.
+then give me best complete outfits based on the top option.
+```
+
+### wedding guest outfits
+
+```text
+i need outfit ideas for a wedding evening function.
+give me 10 complete looks in xl to 3xl.
+split into: under 5k, 5k-10k, and premium.
+include footwear, bag, and earrings in every look.
 ```

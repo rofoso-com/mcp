@@ -14,7 +14,7 @@ upload a photo or share an image link to find similar styles.
 
 ### get complete outfit ideas
 
-pick one item and get matching suggestions like heels, clutch, and earrings.
+pick one item and get matching suggestions like footwear, bag, and earrings.
 
 ### find cheaper alternatives
 
@@ -52,7 +52,7 @@ save and reload cursor.
 ```text
 i am looking for a dress for a birthday party. i am a 27 year old girl.
 use polopan mcp and give me complete outfits.
-include dress + heels + clutch + earrings with links and total price.
+include footwear, bag, and earrings in every look with links and total price.
 show me budget, mid, and premium options.
 ```
 
@@ -77,7 +77,7 @@ if exact trousers are not available, show the closest bottom-wear options.
 ### look for cheaper options
 
 ```text
-i like this product: myntra-36901009
+i would a printed shirt.
 find similar options in the 1501-3000 budget range.
 then give me best complete outfits based on the top option.
 ```

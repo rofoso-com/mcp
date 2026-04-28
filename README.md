@@ -52,7 +52,7 @@ save and reload cursor.
 ```text
 i am looking for a dress for a birthday party. i am a 27 year old girl.
 use polopan mcp and give me complete outfits.
-include footwear, bag, and earrings in every look with links and total price.
+include completing outfits items in every look with links and total price.
 show me budget, mid, and premium options.
 ```
 
@@ -77,9 +77,8 @@ if exact trousers are not available, show the closest bottom-wear options.
 ### look for cheaper options
 
 ```text
-i would a printed shirt.
-find similar options in the 1501-3000 budget range.
-then give me best complete outfits based on the top option.
+i want a printed shirt in the 1501-3000 budget range for a date night.
+then give me best complete outfits based on the top option to complete the set.
 ```
 
 ### wedding guest outfits

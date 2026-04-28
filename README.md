@@ -27,7 +27,7 @@ Search products and generate complete fashion outfit recommendations through a p
 ### Add PoloPan MCP to Cursor
 
 [![Install MCP Server](https://cursor.com/deeplink/mcp-install-dark.svg)](
-cursor://anysphere.cursor-deeplink/mcp/install?name=polopan-products&config=%7B%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22-y%22%2C%22github%3Arofoso-com/mcp-server-code%22%5D%7D
+cursor://anysphere.cursor-deeplink/mcp/install?name=polopan-products&config=%7B%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22-y%22%2C%22%40our/polopan-products-mcp%22%5D%7D
 )
 
 ### OR
@@ -39,7 +39,7 @@ cursor://anysphere.cursor-deeplink/mcp/install?name=polopan-products&config=%7B%
   "mcpServers": {
     "polopan-products": {
       "command": "npx",
-      "args": ["-y", "github:rofoso-com/mcp-server-code"]
+      "args": ["-y", "@our/polopan-products-mcp"]
     }
   }
 }

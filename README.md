@@ -37,7 +37,7 @@ Add this to your `~/.cursor/mcp.json`:
   "mcpServers": {
     "polopan-products": {
       "type": "http",
-      "url": "https://mcp-server.polopan.com/mcp",
+      "url": "https://polopan-mcp-products-1040520402300.asia-southeast1.run.app/mcp",
       "headers": {}
     }
   }

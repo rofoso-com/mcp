@@ -24,13 +24,47 @@ if you like a product but want more options in your budget, ask for alternatives
 
 ## setup
 
-### install in cursor (deeplink)
+### install in Cursor (one-click / deeplink)
 
-[![install mcp server](https://cursor.com/deeplink/mcp-install-dark.svg)](https://polopan.com/mcp/cursor)
+hosted HTTP (recommended — same MCP as Cloud Run, no local Node):
 
-### recommended for uninterrupted connection: hosted mcp (no local Node)
+[![install PoloPan MCP (hosted)](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/install-mcp?name=polopan-products&config=eyJ0eXBlIjoiaHR0cCIsInVybCI6Imh0dHBzOi8vbWNwLXNlcnZlci5wb2xvcGFuLmNvbS9tY3AiLCJoZWFkZXJzIjp7fX0)
+
+full URL (custom domain):
+
+`https://cursor.com/install-mcp?name=polopan-products&config=eyJ0eXBlIjoiaHR0cCIsInVybCI6Imh0dHBzOi8vbWNwLXNlcnZlci5wb2xvcGFuLmNvbS9tY3AiLCJoZWFkZXJzIjp7fX0`
+
+alternate — direct Cloud Run hostname (same service):
+
+`https://cursor.com/install-mcp?name=polopan-products&config=eyJ0eXBlIjoiaHR0cCIsInVybCI6Imh0dHBzOi8vcG9sb3Bhbi1tY3AtcHJvZHVjdHMtMTA0MDUyMDQwMjMwMC5hc2lhLXNvdXRoZWFzdDEucnVuLmFwcC9tY3AiLCJoZWFkZXJzIjp7fX0`
+
+#### is `polopan.com/mcp/cursor` the same as hosted MCP?
+
+not necessarily. links whose `config=` decodes to **`{"type":"stdio","command":"npx","args":["-y","polopan-products-mcp"]}`** install the **local npm stdio** binary — not the HTTP server. example:
+
+`https://cursor.com/en-US/install-mcp?name=polopan-products&config=eyJ0eXBlIjoic3RkaW8iLCJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsInBvbG9wYW4tcHJvZHVjdHMtbWNwIl19`
+
+that matches your pasted URL: it points at **npx + polopan-products-mcp**, not at Cloud Run. for uninterrupted hosted MCP, `config` must use **`type":"http"`** and your **`…/mcp`** URL (links above). update **`polopan.com/mcp/cursor`** to redirect or embed one of those **`http`** `install-mcp` URLs if marketing should match hosted docs.
+
+### recommended for uninterrupted connection: hosted MCP (manual)
 
 add this to your `~/.cursor/mcp.json`:
+
+**canonical domain**
+
+```json
+{
+  "mcpServers": {
+    "polopan-products": {
+      "type": "http",
+      "url": "https://mcp-server.polopan.com/mcp",
+      "headers": {}
+    }
+  }
+}
+```
+
+**or direct Cloud Run URL**
 
 ```json
 {
@@ -61,7 +95,7 @@ if you prefer running the package on your machine:
 }
 ```
 
-requires node.js 18+.
+requires node.js 18+. if `ERR_MODULE_NOT_FOUND` from `@modelcontextprotocol/sdk`, clear stale npx cache: `rm -rf ~/.npm/_npx/*` then run `npx` again.
 
 ---
 

@@ -24,35 +24,11 @@ if you like a product but want more options in your budget, ask for alternatives
 
 ## setup
 
-### install in Cursor (one-click / deeplink)
+### install in cursor (deeplink)
 
-Cursor’s documented format is a **`cursor://`** deeplink ([install links](https://cursor.com/docs/mcp/install-links)), **not** `https://cursor.com/install-mcp` (that path returns **404**).
+[![install mcp server](https://cursor.com/deeplink/mcp-install-dark.svg)](https://polopan.com/mcp/cursor)
 
-hosted HTTP (recommended — same MCP as Cloud Run, no local Node):
-
-[![install PoloPan MCP (hosted)](https://cursor.com/deeplink/mcp-install-dark.svg)](cursor://anysphere.cursor-deeplink/mcp/install?name=polopan-products&config=eyJ0eXBlIjoiaHR0cCIsInVybCI6Imh0dHBzOi8vbWNwLXNlcnZlci5wb2xvcGFuLmNvbS9tY3AiLCJoZWFkZXJzIjp7fX0=)
-
-**Primary link** (`mcp-server.polopan.com`):
-
-`cursor://anysphere.cursor-deeplink/mcp/install?name=polopan-products&config=eyJ0eXBlIjoiaHR0cCIsInVybCI6Imh0dHBzOi8vbWNwLXNlcnZlci5wb2xvcGFuLmNvbS9tY3AiLCJoZWFkZXJzIjp7fX0=`
-
-**Alternate** (direct Cloud Run hostname, same service):
-
-`cursor://anysphere.cursor-deeplink/mcp/install?name=polopan-products&config=eyJ0eXBlIjoiaHR0cCIsInVybCI6Imh0dHBzOi8vcG9sb3Bhbi1tY3AtcHJvZHVjdHMtMTA0MDUyMDQwMjMwMC5hc2lhLXNvdXRoZWFzdDEucnVuLmFwcC9tY3AiLCJoZWFkZXJzIjp7fX0=`
-
-**Browser fallback** (HTTPS landing page that redirects into Cursor — use **`en-US`** path; config uses standard base64 **with** padding):
-
-`https://cursor.com/en-US/install-mcp?name=polopan-products&config=eyJ0eXBlIjoiaHR0cCIsInVybCI6Imh0dHBzOi8vbWNwLXNlcnZlci5wb2xvcGFuLmNvbS9tY3AiLCJoZWFkZXJzIjp7fX0=`
-
-#### is `polopan.com/mcp/cursor` the same as hosted MCP?
-
-not necessarily. links whose `config=` decodes to **`{"type":"stdio","command":"npx","args":["-y","polopan-products-mcp"]}`** install the **local npm stdio** binary — not the HTTP server. example:
-
-`https://cursor.com/en-US/install-mcp?name=polopan-products&config=eyJ0eXBlIjoic3RkaW8iLCJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsInBvbG9wYW4tcHJvZHVjdHMtbWNwIl19`
-
-that matches your pasted URL: it points at **npx + polopan-products-mcp**, not at Cloud Run. for uninterrupted hosted MCP, `config` must use **`type":"http"`** and your **`…/mcp`** URL (links above). update **`polopan.com/mcp/cursor`** to use **`cursor://…/mcp/install`** or **`https://cursor.com/en-US/install-mcp`** with an **`http`** config if marketing should match hosted docs.
-
-### recommended for uninterrupted connection: hosted MCP (manual)
+### recommended for uninterrupted connection: hosted mcp (no local Node)
 
 add this to your `~/.cursor/mcp.json`:
 

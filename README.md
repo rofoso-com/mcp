@@ -1,36 +1,54 @@
 # polopan mcp server
 
-find clothes faster, get full outfit ideas, and shop with less effort.
+Find clothes faster, get full outfit ideas, and shop with less effort.
 
 ## what you can do
 
 ### search by words
 
-type what you want, like "birthday dress under 3000", and get options quickly.
+Type what you want, like "birthday dress under 3000", and get options quickly.
 
 ### search by image
 
-upload a photo or share an image link to find similar styles.
+Upload a photo or share an image link to find similar styles.
 
 ### get complete outfit ideas
 
-pick one item and get matching suggestions like footwear, bag, and earrings.
+Pick one item and get matching suggestions like footwear, bag, and earrings.
 
 ### find cheaper alternatives
 
-if you like a product but want more options in your budget, ask for alternatives.
+If you like a product but want more options in your budget, ask for alternatives.
+
+---
 
 ## setup
 
-### install in cursor
+### install in cursor (deeplink)
 
-[![install mcp server](https://cursor.com/deeplink/mcp-install-dark.svg)](
-https://polopan.com/mcp/cursor
-)
+[![install mcp server](https://cursor.com/deeplink/mcp-install-dark.svg)](https://polopan.com/mcp/cursor)
 
-### or setup manually
+### recommended: hosted MCP (no local Node)
 
-add this to your `~/.cursor/mcp.json` file:
+Add this to your `~/.cursor/mcp.json`:
+
+```json
+{
+  "mcpServers": {
+    "polopan-products": {
+      "type": "http",
+      "url": "https://mcp-server.polopan.com/mcp",
+      "headers": {}
+    }
+  }
+}
+```
+
+Save and reload Cursor.
+
+### optional: local npm / npx (stdio)
+
+If you prefer running the package on your machine:
 
 ```json
 {
@@ -43,7 +61,9 @@ add this to your `~/.cursor/mcp.json` file:
 }
 ```
 
-save and reload cursor.
+Requires Node.js 18+.
+
+---
 
 ## prompts you can copy and use
 

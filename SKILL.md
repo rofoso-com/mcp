@@ -40,9 +40,10 @@ Before recommending any product to the user:
 * Verify available sizes via `check_variant_availability` or check `available_sizes` in product payloads.
 * Never recommend a size that is out of stock.
 
-### 3. Direct 1-Click Checkout Links (Shopify Checkout Kit Style)
-* Use `get_direct_checkout_url` with the user's selected `size` and any applicable `coupon`.
-* Present the verified `https://s.polopan.com/p/{handle}?size={size}` link so the user can purchase in a single click without having to browse or re-select sizes.
+### 3. Selection -> Size Selection -> Direct 1-Click Checkout Links
+* Every product includes an enriched `sizes` array with `size_index`, `size`, `available`, `inventory_quantity`, and direct `checkout_url` (`https://s.polopan.com/p/{handle}/{size_index}`).
+* Use `check_variant_availability` with `desired_size` or `size_index` to verify live stock and get the exact `direct_checkout_url`.
+* Use `get_direct_checkout_url` with the user's selected `size` or `size_index` (and any applicable `coupon`) to obtain the direct `https://s.polopan.com/p/{handle}/{size_index}` checkout URL so the shopper completes the purchase with 1 click.
 
 ### 4. Occasion Looks Discovery
 When asked for wedding, party, club night, or vacation outfits:

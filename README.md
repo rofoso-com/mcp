@@ -1,58 +1,37 @@
 # polopan mcp server
 
-find clothes faster, get full outfit ideas, and shop with less effort.
+find clothes faster, deconstruct outfit photos with AI bounding boxes, check real-time size stock, get full occasion looks, and checkout in 1 click.
 
 ## what you can do
 
-### search by words
+### 1. search by words or image
+* **text search**: type what you want, like *"birthday dress under 3000"*, with instant size and price filters.
+* **visual search**: upload a photo or share an image link to find identical or visually similar items.
 
-type what you want, like "birthday dress under 3000", and get options quickly.
+### 2. deconstruct full outfit photos ("shop the look")
+* upload any photo or influencer screenshot to detect individual pieces with bounding boxes (**Dress**, **Top**, **Bottom**, **Footwear**, **Bag**) and find exact catalog matches for each piece.
 
-### search by image
+### 3. real-time size stock & pricing check
+* verify whether a shopper's specific size is in stock right now, get live prices with discount %, shipping SLAs, and return policies before making a recommendation.
 
-upload a photo or share an image link to find similar styles.
+### 4. discover full looks by occasion
+* get curated, coordinated outfits (outfit + footwear + bag + jewelry) styled for specific occasions: **Wedding**, **Cocktail**, **Party**, **Date Night**, **Club Night**, **Brunch**, and **Casual**.
 
-### get complete outfit ideas
+### 5. direct 1-click checkout links (shopify checkout kit style)
+* generate instant 1-click purchase URLs with pre-selected sizes and coupon codes so shoppers skip browsing and buy immediately.
 
-pick one item and get matching suggestions like footwear, bag, and earrings.
-
-### find cheaper alternatives
-
-if you like a product but want more options in your budget, ask for alternatives.
+### 6. find budget alternatives
+* if a user likes a product but wants options matching their budget, discover visually similar alternatives in distinct price tiers.
 
 ---
 
 ## setup
 
-### install in Cursor (one-click / deeplink)
+### install in cursor (deeplink)
 
-Cursor’s documented format is a **`cursor://`** deeplink ([install links](https://cursor.com/docs/mcp/install-links)), **not** `https://cursor.com/install-mcp` (that path returns **404**).
+[![install mcp server](https://cursor.com/deeplink/mcp-install-dark.svg)](https://polopan.com/mcp/cursor)
 
-hosted HTTP (recommended — same MCP as Cloud Run, no local Node):
-
-[![install PoloPan MCP (hosted)](https://cursor.com/deeplink/mcp-install-dark.svg)](cursor://anysphere.cursor-deeplink/mcp/install?name=polopan-products&config=eyJ0eXBlIjoiaHR0cCIsInVybCI6Imh0dHBzOi8vbWNwLXNlcnZlci5wb2xvcGFuLmNvbS9tY3AiLCJoZWFkZXJzIjp7fX0=)
-
-**Primary link** (`mcp-server.polopan.com`):
-
-`cursor://anysphere.cursor-deeplink/mcp/install?name=polopan-products&config=eyJ0eXBlIjoiaHR0cCIsInVybCI6Imh0dHBzOi8vbWNwLXNlcnZlci5wb2xvcGFuLmNvbS9tY3AiLCJoZWFkZXJzIjp7fX0=`
-
-**Alternate** (direct Cloud Run hostname, same service):
-
-`cursor://anysphere.cursor-deeplink/mcp/install?name=polopan-products&config=eyJ0eXBlIjoiaHR0cCIsInVybCI6Imh0dHBzOi8vcG9sb3Bhbi1tY3AtcHJvZHVjdHMtMTA0MDUyMDQwMjMwMC5hc2lhLXNvdXRoZWFzdDEucnVuLmFwcC9tY3AiLCJoZWFkZXJzIjp7fX0=`
-
-**Browser fallback** (HTTPS landing page that redirects into Cursor — use **`en-US`** path; config uses standard base64 **with** padding):
-
-`https://cursor.com/en-US/install-mcp?name=polopan-products&config=eyJ0eXBlIjoiaHR0cCIsInVybCI6Imh0dHBzOi8vbWNwLXNlcnZlci5wb2xvcGFuLmNvbS9tY3AiLCJoZWFkZXJzIjp7fX0=`
-
-#### is `polopan.com/mcp/cursor` the same as hosted MCP?
-
-not necessarily. links whose `config=` decodes to **`{"type":"stdio","command":"npx","args":["-y","polopan-products-mcp"]}`** install the **local npm stdio** binary — not the HTTP server. example:
-
-`https://cursor.com/en-US/install-mcp?name=polopan-products&config=eyJ0eXBlIjoic3RkaW8iLCJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsInBvbG9wYW4tcHJvZHVjdHMtbWNwIl19`
-
-that matches your pasted URL: it points at **npx + polopan-products-mcp**, not at Cloud Run. for uninterrupted hosted MCP, `config` must use **`type":"http"`** and your **`…/mcp`** URL (links above). update **`polopan.com/mcp/cursor`** to use **`cursor://…/mcp/install`** or **`https://cursor.com/en-US/install-mcp`** with an **`http`** config if marketing should match hosted docs.
-
-### recommended for uninterrupted connection: hosted MCP (manual)
+### recommended for uninterrupted connection: hosted mcp (no local Node)
 
 add this to your `~/.cursor/mcp.json`:
 
@@ -107,8 +86,20 @@ requires node.js 18+. if `ERR_MODULE_NOT_FOUND` from `@modelcontextprotocol/sdk`
 
 ## prompts you can copy and use
 
-### birthday party shopping
+### shop the full look from a photo
+```text
+use polopan mcp to deconstruct this outfit photo into individual pieces (top, bottom, footwear, accessories).
+then find the closest match on PoloPan for each piece in size M, check live stock, and give me direct checkout links for each item.
+```
 
+### wedding guest outfits by occasion
+```text
+i need outfit ideas for an evening wedding reception.
+give me 5 complete looks for women with jewellery, shoes, and bag.
+check available sizes and give me the direct 1-click checkout links with total price.
+```
+
+### birthday party shopping
 ```text
 i am looking for a dress for a birthday party. i am a 27 year old girl.
 use polopan mcp and give me complete outfits.
@@ -117,7 +108,6 @@ show me budget, mid, and premium options.
 ```
 
 ### club night look
-
 ```text
 budget is not a problem.
 size is 2xl/3xl.
@@ -126,26 +116,17 @@ use polopan mcp and suggest 8 complete looks.
 make them bold and stylish, and include total look price.
 ```
 
-### find from image
-
-```text
-use this image and find similar products.
-then show only pants or trousers style options with links and sizes.
-if exact trousers are not available, show the closest bottom-wear options.
-```
-
 ### look for cheaper options
-
 ```text
 i want a printed shirt in the 1501-3000 budget range for a date night.
 then give me best complete outfits based on the top option to complete the set.
 ```
 
-### wedding guest outfits
+---
 
-```text
-i need outfit ideas for a wedding evening function.
-give me 10 complete looks in xl to 3xl.
-split into: under 5k, 5k-10k, and premium.
-include footwear, bag, and earrings in every look.
+## testing
+
+Run the automated end-to-end test suite:
+```bash
+npm test
 ```

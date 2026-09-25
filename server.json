@@ -17,12 +17,5 @@
         "type": "stdio"
       }
     }
-  ],
-  "remotes": [
-    {
-      "type": "streamable-http",
-      "url": "https://mcp-server.polopan.com/mcp"
-    }
   ]
 }
-

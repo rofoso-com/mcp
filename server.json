@@ -1,10 +1,10 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
-  "name": "io.github.rofoso-com/mcp",
+  "name": "io.github.rofoso-com/polopan-fashion-mcp",
   "title": "PoloPan Fashion MCP Server",
   "description": "Fashion & apparel MCP: visual outfit search, stock verification, and 1-click checkout.",
   "repository": {
-    "url": "https://github.com/rofoso-com/mcp",
+    "url": "https://github.com/rofoso-com/polopan-fashion-mcp",
     "source": "github"
   },
   "version": "1.2.6",

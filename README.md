@@ -35,28 +35,12 @@ find clothes faster, deconstruct outfit photos with AI bounding boxes, check rea
 
 add this to your `~/.cursor/mcp.json`:
 
-**canonical domain**
-
 ```json
 {
   "mcpServers": {
     "polopan-products": {
       "type": "http",
       "url": "https://mcp-server.polopan.com/mcp",
-      "headers": {}
-    }
-  }
-}
-```
-
-**or direct Cloud Run URL**
-
-```json
-{
-  "mcpServers": {
-    "polopan-products": {
-      "type": "http",
-      "url": "https://polopan-mcp-products-1040520402300.asia-southeast1.run.app/mcp",
       "headers": {}
     }
   }

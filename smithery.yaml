@@ -19,6 +19,10 @@ tags:
 
 startCommand:
   type: stdio
+  configSchema:
+    type: object
+    properties: {}
+    description: "No required credentials or configuration needed for PoloPan Fashion MCP."
   config:
     command: npx
     args:

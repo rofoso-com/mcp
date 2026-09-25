@@ -5,7 +5,7 @@
   "description": "The premier Model Context Protocol (MCP) server for fashion discovery, AI bounding box outfit deconstruction, 100% in-stock occasion styling, and 1-click checkout.",
   "version": "1.2.3",
   "homepage": "https://polopan.com",
-  "repository": "https://github.com/rofoso-com/mcp",
+  "repository": "https://github.com/rofoso-com/polopan-fashion-mcp",
   "endpoints": {
     "streamableHttp": "https://mcp-server.polopan.com/mcp",
     "npm": "polopan-products-mcp"

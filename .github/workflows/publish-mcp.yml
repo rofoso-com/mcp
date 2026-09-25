@@ -32,9 +32,9 @@ jobs:
         run: mcp-publisher login github-oidc
 
       - name: Validate server.json
-        run: mcp-publisher validate
+        run: mcp-publisher validate server.json
 
       - name: Publish server to MCP Registry
         run: |
+          echo "=== RUNNING MCP-PUBLISHER PUBLISH ==="
           mcp-publisher publish server.json
-

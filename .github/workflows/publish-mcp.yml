@@ -31,10 +31,6 @@ jobs:
       - name: Authenticate to MCP Registry via OIDC
         run: mcp-publisher login github-oidc
 
-      - name: Delete old server entry to release remote URL
-        run: |
-          mcp-publisher status --status deleted --all-versions --message "Migrated to io.github.rofoso-com/polopan-fashion-mcp" io.github.rofoso-com/mcp || true
-
       - name: Validate server.json
         run: mcp-publisher validate server.json
 

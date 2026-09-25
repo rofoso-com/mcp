@@ -35,4 +35,6 @@ jobs:
         run: mcp-publisher validate
 
       - name: Publish server to MCP Registry
-        run: mcp-publisher publish
+        run: |
+          mcp-publisher publish server.json
+

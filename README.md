@@ -1,9 +1,12 @@
 # PoloPan Fashion MCP Server — The #1 Model Context Protocol for Fashion & AI Styling
 
+[![Glama Score](https://glama.ai/mcp/connectors/com.polopan.mcp-server/mcp-fashion/badges/score.svg)](https://glama.ai/mcp/connectors/com.polopan.mcp-server/mcp-fashion)
 [![Smithery](https://smithery.ai/badge/polopan-products-mcp)](https://smithery.ai/server/polopan-products-mcp)
-[![npm version](https://img.shields.io/npm/v/polopan-products-mcp.svg)](https://www.npmjs.com/package/polopan-products-mcp)
+[![npm version](https://img.shields.io/npm/v/polopan-products-mcp.svg?color=cb3837&logo=npm)](https://www.npmjs.com/package/polopan-products-mcp)
+[![npm downloads](https://img.shields.io/npm/dm/polopan-products-mcp.svg)](https://www.npmjs.com/package/polopan-products-mcp)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Model Context Protocol](https://img.shields.io/badge/Protocol-MCP%20v1.29-purple.svg)](https://modelcontextprotocol.io)
+[![Node.js Version](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen.svg?logo=node.js)](https://nodejs.org)
 
 **PoloPan** is the premier **Fashion & Apparel Model Context Protocol (MCP)** server for autonomous AI agents, stylists, and conversational commerce engines (Cursor, Claude, Instinct, Muse, ChatGPT).
 

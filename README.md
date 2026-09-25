@@ -11,14 +11,14 @@ find clothes faster, deconstruct outfit photos with AI bounding boxes, check rea
 ### 2. deconstruct full outfit photos ("shop the look")
 * upload any photo or influencer screenshot to detect individual pieces with bounding boxes (**Dress**, **Top**, **Bottom**, **Footwear**, **Bag**) and find exact catalog matches for each piece.
 
-### 3. real-time size stock & pricing check
-* verify whether a shopper's specific size is in stock right now, get live prices with discount %, shipping SLAs, and return policies before making a recommendation.
+### 3. real-time size stock, quickview specs & pricing check
+* verify whether a shopper's specific size is in stock right now, get live prices with discount %, shipping SLAs, return policies, and tabular product specifications (**Material / Fabric**, **Collar**, **Sleeves**, **Fit**, **Bottom**, **Care Instructions**) matching the mobile app QuickView.
 
 ### 4. discover full looks by occasion
 * get curated, coordinated outfits (outfit + footwear + bag + jewelry) styled for specific occasions: **Wedding**, **Cocktail**, **Party**, **Date Night**, **Club Night**, **Brunch**, and **Casual**.
 
-### 5. direct 1-click checkout links (shopify checkout kit style)
-* generate instant 1-click purchase URLs with pre-selected sizes and coupon codes so shoppers skip browsing and buy immediately.
+### 5. direct 1-click checkout links with mandatory size selection
+* present available in-stock sizes and confirm the shopper's size choice before generating instant 1-click purchase URLs (`https://s.polopan.com/p/{handle}/{size_index}`) with pre-selected sizes and coupon codes.
 
 ### 6. find budget alternatives
 * if a user likes a product but wants options matching their budget, discover visually similar alternatives in distinct price tiers.

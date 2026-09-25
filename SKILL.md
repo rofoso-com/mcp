@@ -1,12 +1,12 @@
 ---
 name: polopan-fashion
 description: >-
-  Search PoloPan fashion catalog, deconstruct outfit images with AI bounding boxes, discover occasion looks, render mobile app QuickView product specifications, check live SKU sizes/stock, and generate 1-click checkout purchase links with verified s.polopan.com links.
+  Search PoloPan fashion catalog, deconstruct outfit images with AI bounding boxes, discover 100% in-stock occasion looks, display product specifications tables, check live SKU sizes/stock & return/shipping policies, and generate 1-click checkout purchase links.
 ---
 
 # PoloPan Fashion & Products Skill
 
-This skill guides AI assistants on how to query the **PoloPan Products MCP Server** to find apparel, deconstruct outfit photos into individual pieces, render mobile app QuickView product details tables, check real-time size stock, find budget alternatives, discover occasion-tailored looks, and generate direct 1-click checkout links after confirming the user's size choice.
+This skill guides AI assistants on how to query the **PoloPan Products MCP Server** to find apparel, deconstruct outfit photos into individual pieces, check real-time size stock, find budget alternatives, discover occasion-tailored looks, render structured product specifications tables, and generate direct 1-click checkout links with verified `s.polopan.com` permalinks.
 
 ---
 
@@ -14,65 +14,86 @@ This skill guides AI assistants on how to query the **PoloPan Products MCP Serve
 
 | Tool | Purpose | Key Arguments |
 | :--- | :--- | :--- |
-| `search_products_text` | Search products via natural language & filters with tabular `product_details` | `query`, `gender`, `price_min`, `price_max`, `size`, `vendor`, `sort_by`, `sort_order`, `page`, `page_size` |
+| `search_products_text` | Search products via natural language & filters with tabular `product_details` and policy SLAs | `query`, `gender`, `price_min`, `price_max`, `size`, `vendor`, `sort_by`, `sort_order`, `page`, `page_size` |
 | `search_products_image` | Find visually similar items using an image URL | `image_url`, `gender`, `price_min`, `price_max`, `size`, `vendor` |
-| `search_products_image_upload` | Find items by uploading local image / base64 | `image_path` or `image_base64`, plus search filters |
-| `detect_fashion_pieces` | Deconstruct outfit photo into pieces (Tops, Bottoms, Shoes, Bags) | `image_url`, `image_path`, `image_base64`, `threshold` |
-| `get_looks_by_occasion` | Discover complete curated looks for events (Wedding, Party, Date Night) | `occasion`, `gender` (`women`/`men`), `age`, `page`, `page_size`, `vendor` |
+| `search_products_image_upload` | Find items by uploading local image / base64 | `file_path` plus search filters |
+| `detect_fashion_pieces` | Deconstruct outfit photo into pieces (Tops, Bottoms, Shoes, Bags, Accessories) | `image_url`, `threshold` |
+| `get_looks_by_occasion` | Discover complete curated looks for events (Wedding, Party, Date Night, Casual, etc.). Automatically excludes out-of-stock looks. | `occasion`, `gender` (`women`/`men`), `age`, `page`, `page_size`, `vendor` |
 | `get_product_by_handle` | Retrieve full product document, `product_details`, & variants | `handle` (e.g. `shopify_11206`) |
 | `check_variant_availability` | Verify real-time stock, `product_details` table, in-stock sizes, live pricing, and shipping/return SLAs | `handle`, `desired_size` (optional), `size_index` (optional) |
-| `get_direct_checkout_url` | Generate 1-click direct checkout permalink with confirmed size & coupon | `handle`, `size`, `size_index`, `quantity`, `coupon` |
+| `get_direct_checkout_url` | Generate 1-click direct checkout permalink with confirmed size index & coupon (`https://s.polopan.com/p/{handle}/{size_index}`) | `handle`, `size`, `size_index`, `quantity`, `coupon` |
 | `search_alternatives_in_budget` | Find visually similar alternatives in a target price bracket | `handle`, `budget_range` (`0-1500`, `1501-3000`, `3001-5000`, `5000+`), `limit` |
-| `get_recommended_outfits` | Get complementary matching outfits by handle or occasion | `handle` OR `occasion`, `gender`, `page`, `page_size` |
+| `get_recommended_outfits` | Get complementary matching outfits by handle or occasion (100% in-stock verified) | `handle` OR `occasion`, `gender`, `page`, `page_size` |
 
 ---
 
-## 🎯 Best Practices for AI Agents
+## 🚨 MANDATORY OPERATIONAL RULES FOR ALL AI AGENTS
 
-### 1. Photo Deconstruction Workflow ("Shop the Look")
-When a user uploads an image or photo of someone's outfit:
-1. Call `detect_fashion_pieces` to identify all garment and accessory bounding boxes (`Dress`, `Upper-body garment`, `Lower-body garment`, `Footwear`, `Bag`).
-2. For each detected piece, query PoloPan using `search_products_text` or `search_products_image`.
-3. Present a complete piece-by-piece breakdown with image previews and buyable links.
+### Rule 0: Available Sizes & Policy Display
+When presenting any look or product recommendation:
+1. **Available In-Stock Sizes**: Always tell the user the currently available sizes for every item in that look (e.g., `Available Sizes: XS, S, M, L, XL` or `Available Sizes: 38, 40, 42`).
+2. **Shipping & Return SLA**: Always display the shipping dispatch SLA and return policy for each item.
+3. **Negative Return Days = Exchange Only**:
+   * If `return_days < 0` (or `return_policy_text` starts with Exchange), display: **`Exchange only |X| days`** (e.g., `-7` days $\rightarrow$ `Exchange only 7 days`, `-5` days $\rightarrow$ `Exchange only 5 days`).
+   * If `return_allowed` is `false` or `0` days: display `No returns (Final sale)`.
+   * If positive: display `X days easy returns`.
 
 ---
 
-### 2. QuickView Specifications Table (Matching Mobile App)
-Whenever presenting a product recommendation to the user:
-* Always render the **Product Details Table** using the `product_details` object (extracted from `product.style.productContentGroupEntries` matching the mobile app `QuickView` / `PremiumProductDetailsTable`):
+### Rule 1: Strict In-Stock Look Shortlisting (Never Return OOS Looks)
+* **Never recommend or shortlist a look that contains any out-of-stock item.**
+* Every single item in the outfit (garments, footwear, bag, accessories) must be currently in stock.
+* If any component in a look is out of stock (`is_in_stock: false` or `available_sizes` is empty), **immediately discard that look and move to the next look**. Do not shortlist or present out-of-stock looks to the user.
+
+---
+
+### Rule 2: Structured Specifications Table for Shortlisted Looks
+When a look is shortlisted and presented to the user, render a structured specifications table for the garments/items from `product_details`:
 
 ```markdown
-#### 📋 Product Details (QuickView)
 | Specification | Details |
 | :--- | :--- |
-| **Material / Fabric** | Viscose |
-| **Pattern / Work** | Ornamented / Zig-zag mirror work |
-| **Collar / Neck** | Mandarin collar |
-| **Sleeve Length** | Long sleeves |
-| **Bottom Type** | Pyjama with elasticated waistband |
-| **Care Instructions** | Dry clean |
-| **Delivery & Returns** | Dispatches in 7 days • 3-day easy returns |
+| **Material / Fabric** | Pure Cotton / Silk Blend |
+| **Pattern / Work** | Embroidered / Woven Floral |
+| **Collar / Neck** | Round Neck / Mandarin Collar |
+| **Sleeve Length** | 3/4 Sleeves / Long Sleeves |
+| **Fit / Shape** | Straight / Regular Fit |
+| **Bottom Type** | Trousers / Pyjama with Drawstring |
+| **Care Instructions** | Machine wash / Dry clean |
+| **Shipping** | Dispatched within 2 days |
+| **Return / Exchange** | Exchange only 7 days |
 ```
+*(Do not mention internal terms like "quick view" to the user—simply display the table cleanly).*
 
 ---
 
-### 3. Live Sizing & Mandatory Size Confirmation Before Checkout
-Before issuing any 1-click checkout link:
-1. **Check Live Stock**: Call `check_variant_availability` (or inspect `sizes` / `available_sizes`).
-2. **Display Available Sizes**: List all in-stock sizes clearly to the user (e.g., `36 (Small)`, `38 (Medium)`, `40 (Large)`).
-3. **MANDATORY - Prompt User for Size Selection**:
-   * **Rule**: Do **NOT** provide the final 1-click checkout link (`https://s.polopan.com/p/{handle}/{size_index}`) until the user selects or confirms their desired size.
-   * **Prompt**: *"Please select or confirm your preferred size from the available in-stock options above so I can prepare your 1-click checkout link."*
-4. **Generate Direct Checkout URL with `{size_index}`**:
-   * Once the user specifies their size, map it to its `size_index` and provide the exact 1-click checkout link:
-     `https://s.polopan.com/p/{handle}/{size_index}`
+### Rule 3: Direct `/{size_index}` Checkout Links ONLY When Sizes Are Finalized
+* **During initial browsing, shortlisting, or exploration**: Return **ONLY** the clean base link without a size index:
+  `https://s.polopan.com/p/{handle}`
+* **If there is any confusion or ambiguity regarding size**: Return **ONLY** the clean base link:
+  `https://s.polopan.com/p/{handle}`
+* **Prompt the user to select/confirm their size**:
+  *"Please let me know your preferred size from the available options (e.g., M, L, XL) so I can prepare your direct 1-click checkout link."*
+* **ONLY and ONLY when the user's size is confirmed/finalized**: Provide the complete direct 1-click checkout permalink with the resolved `{size_index}`:
+  `https://s.polopan.com/p/{handle}/{size_index}`
 
 ---
 
-### 4. Occasion Looks Discovery
-When asked for wedding, party, club night, or vacation outfits:
-* Call `get_looks_by_occasion` with the specific occasion (e.g. `occasion: "Wedding & Reception"`, `gender: "women"`).
-* Each look includes full complementary components (garment + footwear + bag + jewelry).
+## 🎯 Example Flow: Recommending a Wedding Look
+
+1. User asks: *"Give me an outfit for a wedding"*
+2. AI calls `get_looks_by_occasion(occasion="Wedding & Reception", gender="women")`.
+3. AI inspects returned looks (which are verified 100% in stock).
+4. AI shortlists the top look and presents:
+   - Complete look title and hero image.
+   - Component items breakdown with **Available Sizes** for each item.
+   - Specifications Table (`Material`, `Work`, `Neck`, `Fit`, `Care`, `Shipping SLA`, `Return/Exchange Policy`).
+   - Clean base product links: `https://s.polopan.com/p/{handle}`.
+   - AI asks user: *"Which size would you like for the Kurta set and footwear?"*
+5. User replies: *"I need size M for the kurta and size 38 for the juttis."*
+6. AI responds with the finalized 1-click direct checkout permalinks:
+   - Kurta Set (Size M): `https://s.polopan.com/p/{kurta_handle}/{m_index}`
+   - Juttis (Size 38): `https://s.polopan.com/p/{jutti_handle}/{38_index}`
 
 ---
 

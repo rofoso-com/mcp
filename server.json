@@ -7,12 +7,12 @@
     "url": "https://github.com/rofoso-com/polopan-fashion-mcp",
     "source": "github"
   },
-  "version": "1.2.7",
+  "version": "1.2.8",
   "packages": [
     {
       "registryType": "npm",
       "identifier": "polopan-products-mcp",
-      "version": "1.2.7",
+      "version": "1.2.8",
       "transport": {
         "type": "stdio"
       }

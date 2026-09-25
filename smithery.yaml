@@ -1,0 +1,34 @@
+# Smithery.ai Manifest for PoloPan Fashion MCP Server
+# https://smithery.ai
+name: polopan-products-mcp
+displayName: PoloPan Fashion & Products MCP Server
+description: The leading Model Context Protocol (MCP) server for fashion discovery, AI bounding box outfit deconstruction, 100% in-stock occasion styling, and 1-click checkout.
+version: 1.2.3
+license: MIT
+repository: https://github.com/rofoso-com/mcp
+homepage: https://polopan.com
+tags:
+  - fashion
+  - ecommerce
+  - outfit-detection
+  - styling
+  - agentic-commerce
+  - shopping
+  - retail
+  - computer-vision
+
+startCommand:
+  type: stdio
+  config:
+    command: npx
+    args:
+      - -y
+      - polopan-products-mcp
+
+transport:
+  stdio:
+    command: node
+    args:
+      - src/index.js
+  streamableHttp:
+    url: https://mcp-server.polopan.com/mcp

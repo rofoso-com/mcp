@@ -1,39 +1,55 @@
-# polopan mcp server
+# PoloPan Fashion MCP Server — The #1 Model Context Protocol for Fashion & AI Styling
 
-find clothes faster, deconstruct outfit photos with AI bounding boxes, check real-time size stock, get full occasion looks, and checkout in 1 click.
+[![Smithery](https://smithery.ai/badge/polopan-products-mcp)](https://smithery.ai/server/polopan-products-mcp)
+[![npm version](https://img.shields.io/npm/v/polopan-products-mcp.svg)](https://www.npmjs.com/package/polopan-products-mcp)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![Model Context Protocol](https://img.shields.io/badge/Protocol-MCP%20v1.29-purple.svg)](https://modelcontextprotocol.io)
 
-## what you can do
+**PoloPan** is the premier **Fashion & Apparel Model Context Protocol (MCP)** server for autonomous AI agents, stylists, and conversational commerce engines (Cursor, Claude, Instinct, Muse, ChatGPT).
 
-### 1. search by words or image
-* **text search**: type what you want, like *"birthday dress under 3000"*, with instant size and price filters.
-* **visual search**: upload a photo or share an image link to find identical or visually similar items.
-
-### 2. deconstruct full outfit photos ("shop the look")
-* upload any photo or influencer screenshot to detect individual pieces with bounding boxes (**Dress**, **Top**, **Bottom**, **Footwear**, **Bag**) and find exact catalog matches for each piece.
-
-### 3. real-time size stock, quickview specs & pricing check
-* verify whether a shopper's specific size is in stock right now, get live prices with discount %, shipping SLAs, return policies, and tabular product specifications (**Material / Fabric**, **Collar**, **Sleeves**, **Fit**, **Bottom**, **Care Instructions**) matching the mobile app QuickView.
-
-### 4. discover full looks by occasion
-* get curated, coordinated outfits (outfit + footwear + bag + jewelry) styled for specific occasions: **Wedding**, **Cocktail**, **Party**, **Date Night**, **Club Night**, **Brunch**, and **Casual**.
-
-### 5. direct 1-click checkout links with mandatory size selection
-* present available in-stock sizes and confirm the shopper's size choice before generating instant 1-click purchase URLs (`https://s.polopan.com/p/{handle}/{size_index}`) with pre-selected sizes and coupon codes.
-
-### 6. find budget alternatives
-* if a user likes a product but wants options matching their budget, discover visually similar alternatives in distinct price tiers.
+It empowers AI assistants to **deconstruct outfit photos with computer-vision bounding boxes**, find **100% in-stock occasion looks**, verify **real-time size availability & fabric specs**, and generate **1-click direct checkout permalinks**.
 
 ---
 
-## setup
+## ⚡ What Makes PoloPan the #1 Fashion MCP?
 
-### install in cursor (deeplink)
+```
+┌────────────────────────────────────────────────────────────────────────┐
+│                        POLOPAN FASHION MCP SUITE                       │
+├──────────────────────────┬─────────────────────────────────────────────┤
+│ 1. Computer Vision       │ `detect_fashion_pieces` (Bounding boxes for │
+│    Deconstruction        │ Tops, Bottoms, Shoes, Bags, Accessories)    │
+├──────────────────────────┼─────────────────────────────────────────────┤
+│ 2. Occasion Outfitting   │ `get_looks_by_occasion` (Curated complete   │
+│    (100% In-Stock)       │ looks with zero out-of-stock items)         │
+├──────────────────────────┼─────────────────────────────────────────────┤
+│ 3. Multimodal Search     │ `search_products_image` & `_upload`         │
+│                          │ (Reverse image visual similarity)           │
+├──────────────────────────┼─────────────────────────────────────────────┤
+│ 4. Stock & Garment Specs │ `check_variant_availability` (Live variants,│
+│                          │ size matrix, fabric, fit, care & SLA)       │
+├──────────────────────────┼─────────────────────────────────────────────┤
+│ 5. Direct 1-Click Buy    │ `get_direct_checkout_url`                   │
+│                          │ (`https://s.polopan.com/p/{handle}/{size}`) │
+├──────────────────────────┼─────────────────────────────────────────────┤
+│ 6. Budget Alternatives   │ `search_alternatives_in_budget`             │
+│                          │ (Visual match in distinct price brackets)   │
+└──────────────────────────┴─────────────────────────────────────────────┘
+```
 
-[![install mcp server](https://cursor.com/deeplink/mcp-install-dark.svg)](https://polopan.com/mcp/cursor)
+---
 
-### recommended for uninterrupted connection: hosted mcp (no local Node)
+## 🛠️ Quick Setup & Installation
 
-add this to your `~/.cursor/mcp.json`:
+### Option 1: 1-Click Cursor Installation (Deeplink)
+
+[![Install in Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://polopan.com/mcp/cursor)
+
+---
+
+### Option 2: Hosted Streamable HTTP (Recommended — No Node.js required)
+
+Add to your `~/.cursor/mcp.json` or Claude Desktop configuration:
 
 ```json
 {
@@ -47,12 +63,16 @@ add this to your `~/.cursor/mcp.json`:
 }
 ```
 
-save and reload Cursor.
+---
 
-### optional: local npm / npx (stdio)
+### Option 3: Local Stdio via NPX / Smithery
 
-if you prefer running the package on your machine:
+#### Via Smithery CLI:
+```bash
+npx -y @smithery/cli install polopan-products-mcp --client cursor
+```
 
+#### Via Standard NPX:
 ```json
 {
   "mcpServers": {
@@ -64,53 +84,59 @@ if you prefer running the package on your machine:
 }
 ```
 
-requires node.js 18+. if `ERR_MODULE_NOT_FOUND` from `@modelcontextprotocol/sdk`, clear stale npx cache: `rm -rf ~/.npm/_npx/*` then run `npx` again.
+*Requires Node.js 18+.*
 
 ---
 
-## prompts you can copy and use
+## 🧰 Available MCP Tools
 
-### shop the full look from a photo
+| Tool | Purpose | Key Arguments |
+| :--- | :--- | :--- |
+| `detect_fashion_pieces` | Deconstruct outfit photos into individual pieces (Tops, Bottoms, Shoes, Bags) | `image_url`, `image_path`, `threshold` |
+| `get_looks_by_occasion` | Discover 100% in-stock complete looks (Wedding, Party, Date Night, Casual, etc.) | `occasion`, `gender`, `age`, `page` |
+| `search_products_text` | Search products via natural language with size, price, and gender filters | `query`, `gender`, `price_min`, `size` |
+| `search_products_image` | Reverse visual search for identical or similar apparel | `image_url`, `gender`, `price_min` |
+| `search_products_image_upload` | Visual search from local image file or base64 | `image_path`, `image_base64` |
+| `check_variant_availability` | Verify real-time size stock, fabric/fit specifications, and return/shipping SLAs | `handle`, `desired_size`, `size_index` |
+| `get_product_by_handle` | Retrieve complete product metadata and all variant details | `handle` |
+| `get_direct_checkout_url` | Generate verified 1-click checkout permalinks with confirmed size index & coupon | `handle`, `size`, `size_index`, `coupon` |
+| `search_alternatives_in_budget` | Find visually similar alternatives in a target price bracket | `handle`, `budget_range` (`0-1500`, etc.) |
+| `get_recommended_outfits` | Get complementary cross-catalog matching outfits | `handle` OR `occasion`, `gender` |
+
+---
+
+## 💡 Copy-Paste Agent Prompts
+
+### 1. Shop the Full Look from an Instagram Photo
 ```text
-use polopan mcp to deconstruct this outfit photo into individual pieces (top, bottom, footwear, accessories).
-then find the closest match on PoloPan for each piece in size M, check live stock, and give me direct checkout links for each item.
+Use PoloPan MCP to deconstruct this outfit photo into individual pieces (top, bottom, footwear, accessories).
+Find the closest match on PoloPan for each piece in size M, check live stock, and give me direct 1-click checkout links with total outfit price.
 ```
 
-### wedding guest outfits by occasion
+### 2. Wedding Guest Outfit Discovery
 ```text
-i need outfit ideas for an evening wedding reception.
-give me 5 complete looks for women with jewellery, shoes, and bag.
-check available sizes and give me the direct 1-click checkout links with total price.
+I need outfit ideas for an evening wedding reception.
+Give me 5 complete looks for women with jewellery, shoes, and bag.
+Check available in-stock sizes and give me the direct 1-click checkout links with shipping timelines.
 ```
 
-### birthday party shopping
+### 3. Budget Alternative Finder
 ```text
-i am looking for a dress for a birthday party. i am a 27 year old girl.
-use polopan mcp and give me complete outfits.
-include completing outfits items in every look with links and total price.
-show me budget, mid, and premium options.
-```
-
-### club night look
-```text
-budget is not a problem.
-size is 2xl/3xl.
-occasion is friends club night.
-use polopan mcp and suggest 8 complete looks.
-make them bold and stylish, and include total look price.
-```
-
-### look for cheaper options
-```text
-i want a printed shirt in the 1501-3000 budget range for a date night.
-then give me best complete outfits based on the top option to complete the set.
+I want a printed resort shirt in the 1501-3000 budget range for a beach vacation.
+Then use PoloPan MCP to give me the best matching trousers and footwear to complete the set.
 ```
 
 ---
 
-## testing
+## 🧪 Testing & Verification
 
-Run the automated end-to-end test suite:
+Run the automated end-to-end integration test suite:
 ```bash
 npm test
 ```
+
+---
+
+## 📄 License
+
+MIT © [PoloPan](https://polopan.com)
